@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>434346703094-521ec5tfgk53jqhsmncoj5i06r7iac6f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.434346703094-521ec5tfgk53jqhsmncoj5i06r7iac6f</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB2UR3-vmOgoemtGVsjF3GBb4pT9XouNZQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>434346703094</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>MN.NavigatorApp</string>
+	<key>PROJECT_ID</key>
+	<string>navigatorapp-b2979</string>
+	<key>STORAGE_BUCKET</key>
+	<string>navigatorapp-b2979.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:434346703094:ios:cb71846cccb57b8ce354d7</string>
+	<key>DATABASE_URL</key>
+	<string>https://navigatorapp-b2979-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
