@@ -39,7 +39,8 @@ class AppCoordinator {
     }
     private func enterApp() {
         mainFlowCoordinator = MainFlowCoordinator(window: window, transitions: self, serviceHolder: serviceHolder)
-        mainFlowCoordinator?.start()
+//        mainFlowCoordinator?.start()
+        mainFlowCoordinator?.start2()
         authCoordinator = nil
     }
     
@@ -66,11 +67,12 @@ extension AppCoordinator: MainFlowCoordinatorTransitions {
 extension AppCoordinator {
     
     private func startServices() {
-//        serviceHolder.add(WeatherService.self, for: WeatherService())
+        serviceHolder.add(NetworkService.self, for: NetworkService())
         serviceHolder.add(UserService.self, for: UserService())
         serviceHolder.add(ProgressHudService.self, for: ProgressHudService())
 //        serviceHolder.add(UserLocationService.self, for: UserLocationService())
         serviceHolder.add(LocalSearchService.self, for: LocalSearchService())
+
     }
     
     private func startLocationServices() {

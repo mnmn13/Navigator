@@ -11,39 +11,25 @@ import MapKit
 
 
 protocol LocalSearchServiceType: Service {
-//    var callBackUserAddressWasChanged: SimpleClosure<String>? { get set }
-//
-//    var callBack
+
     var callBackRequestDataChanged: SimpleClosure<[MKLocalSearchCompletion]>? { get set }
-    
-    
 }
 
-
-
-
 class LocalSearchService: NSObject, LocalSearchServiceType {
+    
     var callBackRequestDataChanged: SimpleClosure<[MKLocalSearchCompletion]>?
     
-    
-    
-    
     private var searchCompleter = MKLocalSearchCompleter()
-    
     var searchResults: [MKLocalSearchCompletion] = []
-    
-    
     
     override init() {
         super.init()
         searchCompleter.delegate = self
-        
     }
     
     func getDataForRequest(text: String) {
         searchCompleter.queryFragment = text
     }
-    
 }
 
 extension LocalSearchService: MKLocalSearchCompleterDelegate {
@@ -54,12 +40,9 @@ extension LocalSearchService: MKLocalSearchCompleterDelegate {
         callBackRequestDataChanged?(completer.results)
         
         //TableView reloadData
-        
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
-
-    
 }

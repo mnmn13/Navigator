@@ -14,3 +14,7 @@ typealias EmptyClosure = () -> ()
 typealias SimpleClosure<T> = (T) -> ()
 typealias FirebaseRequestClosure<R: AuthDataResult, E: Error> = (_ result: (Result<R, E>)) -> ()
 typealias DoubleSimpleClosure<T, A> = (T, A) -> ()
+typealias DefaultClosure<T, A> = (T) -> (A)
+
+
+typealias UserDataType = [String: [Double]]

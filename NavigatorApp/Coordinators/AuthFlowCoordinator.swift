@@ -14,17 +14,12 @@ protocol AuthFlowCoordinatorTransitions: AnyObject {
     func startWithoutLogin()
 }
 
-
 class AuthFlowCoordinator {
     
     private let window: UIWindow
     private let rootNav: UINavigationController = UINavigationController()
     private weak var transitions: AuthFlowCoordinatorTransitions?
     private let serviceHolder: ServiceHolder
-    
-//    private var serviceHolder: ServiceHolder
-//    private var userService: UserServiceType
-    
     
     init(window: UIWindow, transitions: AuthFlowCoordinatorTransitions, serviceHolder: ServiceHolder) {
         self.window = window
@@ -33,20 +28,17 @@ class AuthFlowCoordinator {
     }
     
     func start() {
-//        rootNav.setNavigationBarHidden(true, animated: false)
         
         let coordinator = SignInCoordinator(navigationController: rootNav, transitions: self, serviceHolder: serviceHolder)
         coordinator.start()
         
         window.rootViewController = rootNav
         window.makeKeyAndVisible()
-        
     }
     
     deinit {
         print("\(type(of: self)) \(#function)")
     }
-    
 }
 
 extension AuthFlowCoordinator: SignInCoordinatorTransitions {
@@ -76,6 +68,4 @@ extension AuthFlowCoordinator: SignUpCoordinatorTransitions {
     func signIn() {
         
     }
-    
-    
 }

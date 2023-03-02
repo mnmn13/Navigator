@@ -8,17 +8,9 @@
 
 import UIKit
 
-protocol MapCoordinatorTransitions: AnyObject {
-    
-}
+protocol MapCoordinatorTransitions: AnyObject {}
 
-protocol MapCoordinatorType {
-    
-    
-    
-}
-
-
+protocol MapCoordinatorType {}
 
 class MapCoordinator: MapCoordinatorType {
     
@@ -37,8 +29,7 @@ class MapCoordinator: MapCoordinatorType {
     deinit {
         print("\(type(of: self)) \(#function)")
     }
-    
-    
+
     func start() {
         
         if let controller = controller {
@@ -46,15 +37,12 @@ class MapCoordinator: MapCoordinatorType {
             
             controller.viewModel = viewModel
             
-            
             guard let searchVC = controller2 else { return }
             searchVC.mapViewModel = viewModel
             
             controller.searchResultVController = searchVC
             
             navigationController?.setViewControllers([controller], animated: true)
-            
-            
         }
     }
 }

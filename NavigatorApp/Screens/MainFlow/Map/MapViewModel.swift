@@ -16,15 +16,16 @@ protocol MapViewModelType {
     var onReload: EmptyClosure? { get set }
     var sendItem: DoubleSimpleClosure<MKRoute, [MKCircle]>? { get set }
     
+    //TableView
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection() -> Int
     func getCellForRowAt(indexPath: IndexPath) -> MKLocalSearchCompletion
+    func itemTapped(indexPath: IndexPath)
     
     func sendDataToBeSearch(text: String?)
-    func itemTapped(indexPath: IndexPath)
+
     func getDirection(completion: @escaping DoubleSimpleClosure<MKRoute, [MKCircle]>)
-    var localSearchRersponse: MKLocalSearch.Response? { get set }
-    
+//    var localSearchRersponse: MKLocalSearch.Response? { get set }
 }
 
 class MapViewModel: MapViewModelType {
@@ -36,19 +37,18 @@ class MapViewModel: MapViewModelType {
     var sendItem: DoubleSimpleClosure<MKRoute, [MKCircle]>?
     
     fileprivate let coordinator: MapCoordinatorType
-    private var locationService: UserLocationService
+//    private var locationService: UserLocationService
     private let localSearchService: LocalSearchService
-    private let serviceHolder: ServiceHolder
-    
+//    private let serviceHolder: ServiceHolder
     
     internal var localSearchRersponse: MKLocalSearch.Response?
     internal var userLocation: CLLocationCoordinate2D?
     
     init(coordinator: MapCoordinatorType, serviceHolder: ServiceHolder) {
         self.coordinator = coordinator
-        self.locationService = serviceHolder.get()
+//        self.locationService = serviceHolder.get()
         self.localSearchService = serviceHolder.get()
-        self.serviceHolder = serviceHolder
+//        self.serviceHolder = serviceHolder
         callBackRequestData()
         callBackUserLocation()
     }
@@ -60,8 +60,6 @@ class MapViewModel: MapViewModelType {
             guard let self = self else { return }
             self.searchResults = results
             self.onReload?()
-            
-            
         }
     }
     

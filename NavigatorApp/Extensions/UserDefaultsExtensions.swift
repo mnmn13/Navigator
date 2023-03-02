@@ -16,10 +16,8 @@ extension UserDefaults {
     var isLoggedIn: Bool {
         get {
             bool(forKey: Key.isLoggedIn)
-        }
-        set {
+        } set {
             setValue(newValue, forKey: Key.isLoggedIn)
         }
     }
 }
-

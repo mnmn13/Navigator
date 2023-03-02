@@ -22,6 +22,7 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .cyan
+        setupTextFields()
 
     }
     
@@ -43,14 +44,17 @@ class SignInViewController: UIViewController {
         passwordTF.returnKeyType = .send
         passwordTF.layer.cornerRadius = 15
         passwordTF.isSecureTextEntry = true
-        
     }
     
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         
-        alertLabel.text = viewModel.validate(email: emailTF.text, password: passwordTF.text, view: view)
+        loginButtonExtension()
         
 //        viewModel.testLogin()
+    }
+    
+    private func loginButtonExtension() {
+        alertLabel.text = viewModel.validate(email: emailTF.text, password: passwordTF.text, view: view)
     }
     
     @IBAction func signUpButtonTapped(_ sender: UIButton) {
@@ -71,9 +75,10 @@ extension SignInViewController: UITextFieldDelegate {
         if textField == emailTF {
             passwordTF.becomeFirstResponder()
         } else if textField == passwordTF {
-//            loginTappedExtension()
+            loginButtonExtension()
         }
         return true
     }
     
 }
+ 

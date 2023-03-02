@@ -19,8 +19,5 @@ class ProgressHudService: Service {
     
     func progressViewDisable() {
         loading.dismiss()
-    }
-    
-    
-    
+    } 
 }

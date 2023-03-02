@@ -48,7 +48,6 @@ class MapViewController: UIViewController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }
-    
 }
 
 extension MapViewController: MKMapViewDelegate {

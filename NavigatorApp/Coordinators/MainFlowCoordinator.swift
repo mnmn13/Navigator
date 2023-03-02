@@ -6,7 +6,6 @@
 //  Copyright © 2023 Nikita Moshyn. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 protocol MainFlowCoordinatorTransitions: AnyObject {
@@ -38,17 +37,27 @@ class MainFlowCoordinator {
 
             window.rootViewController = rootNav
             window.makeKeyAndVisible()
-//        }
+    }
+    
+    func start2() {
+        let coordinator = MainScreenCoordinator(serviceHolder: serviceHolder, navigationController: rootNav, transitions: self)
+        coordinator.start()
+        
+        window.rootViewController = rootNav
+        window.makeKeyAndVisible()
     }
 }
 
 extension MainFlowCoordinator: MainFlowCoordinatorType {
 
-    
 }
 
 extension MainFlowCoordinator: MapCoordinatorTransitions {
     
 }
 
-
+extension MainFlowCoordinator: MainCoordinatorTransitions {
+    func logout() {
+        transitions?.logout()
+    }
+}

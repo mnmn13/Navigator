@@ -12,7 +12,8 @@ struct Storyboard {
     static let auth = UIStoryboard(name: "Auth", bundle: nil)
     static let map = UIStoryboard(name: "Map", bundle: nil)
     static let search = UIStoryboard(name: "Search", bundle: nil)
-//    static let map2 = UIStoryboard(name: "Map2", bundle: nil)
+    static let main = UIStoryboard(name: "Main", bundle: nil)
+    static let showMap = UIStoryboard(name: "ShowMap", bundle: nil)
 }
 
 protocol StoryboardIdentifiable {

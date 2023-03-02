@@ -15,10 +15,12 @@ protocol UserLocationServiceType: Service {
     
     //callback
     var callBackUserLocationWasChanged: SimpleClosure<CLLocationCoordinate2D>? { get set }
+    var startStopMonitoring: SimpleClosure<Bool>? { get set }
     
     //getters
     var userLocation: CLLocationCoordinate2D? { get }
     var userAddress: String? { get }
+    var startTracking: Bool { get set }
     
 }
 
@@ -27,31 +29,47 @@ class UserLocationService: NSObject, UserLocationServiceType {
     private var locationManager: CLLocationManager?
     private var lastUserLocation: CLLocationCoordinate2D?
     private var lastUserAddress: String?
+    var startTracking: Bool = false
+    var startStopMonitoring: SimpleClosure<Bool>?
+    
+    private let neetworkService = NetworkService()
 
     var callBackUserLocationWasChanged: SimpleClosure<CLLocationCoordinate2D>?
     
     override init() {
         super.init()
-        
+        bind()
         locationManager = CLLocationManager()
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.distanceFilter = kCLLocationAccuracyHundredMeters
         locationManager?.delegate = self
         locationManager?.allowsBackgroundLocationUpdates = true
         locationManager?.showsBackgroundLocationIndicator = true
-        
-        let status = CLLocationManager.authorizationStatus()
-        if status == .notDetermined {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-                self?.locationManager?.requestWhenInUseAuthorization()
-            }
-        } else if status != .denied && status != .restricted {
-            locationManager?.startUpdatingLocation()
-        }
     }
     
     deinit {
         print("UserLocationService deinit")
+    }
+    
+    func bind() {
+        startStopMonitoring = { [weak self] bool in
+            guard let self = self else { return }
+            let status = CLLocationManager.authorizationStatus()
+            
+            if bool {
+                if status == .notDetermined {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.locationManager?.requestWhenInUseAuthorization()
+                    }
+                } else if status != .denied && status != .restricted {
+                    self.startTracking = true
+                    self.locationManager?.startUpdatingLocation()
+                }
+            } else {
+                self.startTracking = false
+                self.locationManager?.stopUpdatingLocation()
+            }
+        }
     }
 }
 
@@ -69,10 +87,11 @@ extension UserLocationService {
 
 //MARK:- CLLocationManagerDelegate
 extension UserLocationService: CLLocationManagerDelegate {
-    
     internal func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            locationManager?.startUpdatingLocation()
+        if startTracking {
+            if status == .authorizedWhenInUse {
+//                locationManager?.startUpdatingLocation()
+            }
         }
     }
     
@@ -84,15 +103,21 @@ extension UserLocationService: CLLocationManagerDelegate {
         guard let location = locations.last?.coordinate else { return }
         callBackUserLocationWasChanged?(location)
         
+        if startTracking {
+            startTracking = false
         guard let locationToDatabase = locations.last else { return }
         manager.distanceFilter = kCLLocationAccuracyHundredMeters
         print("Current location update - \(locationToDatabase)")
         FirebaseDatabaseManager.shared.sendLocationToDatabase(with: locationToDatabase)
         
+        
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+            startTracking = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                self?.startTracking = true
+            }
+        }
     }
-    
-    
     
 //    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 //        AlertHelper.showAlert(msg: error.localizedDescription)
